@@ -114,7 +114,7 @@ X=cbind(x,z)
 #Count the number of expected solutions
 neq=ncol(X)
 #Count the number of expected of fixed effect means
-nmeans=ncol(x)
+nmeans=ncol(X)
 
 #provide phenotypes as the starting values for residual updater
 e=as.matrix(y)
@@ -139,14 +139,14 @@ for (j in 1:neq){
 
 ###############################################################
 
-### FIT SNPS AS RANDOM EFFECTS ################################
+### FIT SNPS AS FIXED EFFECTS ################################
 
 ###############################################################
 
 #create intital empty vector to store newly generated solutions at each iteration
-sol_random=rep(0,neq)
+sol_fixed=rep(0,neq)
 #create intial empty vector to store previously generated solutions at each iteration
-old_sol_random=rep(0,neq)
+old_sol_fixed=rep(0,neq)
 
 #set counter for iterator
 count=1
@@ -165,7 +165,7 @@ repeat{
       lhs=xpx[j]+lamda1
     }
     #form rhs with y corrected by other effects (formula 1)
-    rhs=(X[,j]%*%e) + (xpx[j]*sol_random[j])
+    rhs=(X[,j]%*%e) + (xpx[j]*sol_fixed[j])
     #do Gauss Seidel
     val=rhs/lhs
     #MCMC sample solution from its conditional (commented out here)
@@ -173,14 +173,14 @@ repeat{
     #val_den=(1/lhs)
     #val=rnorm(1,(rhs/lhs),(1/lhs))
     #update e with current estimate (formula 2)
-    e = e - (X[,j]*(val-sol_random[j]))
+    e = e - (X[,j]*(val-sol_fixed[j]))
     #store old solution
-    old_sol_random[j]=sol_random[j]
+    old_sol_fixed[j]=sol_fixed[j]
     #update sol
-    sol_random[j]=val
+    sol_fixed[j]=val
     #Calcualte convergence value using the SumSquare of old vs new solutions
-    ssqd_on[j]<-ssqd(old_sol_random[j],sol_random[j])
-    ssq_n[j]<-sum(sol_random[j]^2)
+    ssqd_on[j]<-ssqd(old_sol_fixed[j],sol_fixed[j])
+    ssq_n[j]<-sum(sol_fixed[j]^2)
     CONV<-ssqd_on[j]/ssq_n[j]
   }
   if (CONV<=CONV_TOL) break
@@ -191,9 +191,9 @@ repeat{
 print(paste0("SNP EFFECTS (RANDOM) took ",count," iterations to solve",sep=" "))
 
 sim_effects=allele_effect
-plot(sol_random[-(nmeans)],sim_effects,main="SNP Effect Estimates vs True Values")
+plot(sol_fixed[-nmeans],sim_effects,main="SNP Effect Estimates vs True Values")
 
-ebv<-X%*%sol_random
+ebv<-X%*%sol_fixed
 gv<-z%*%allele_effect
 cor.test(gv,ebv)
 plot(gv,ebv,main="Genomic Estimated Breeding Values (GEBVS) vs Genetic Values : Training Set")
@@ -210,7 +210,7 @@ plot(gv,ebv,main="Genomic Estimated Breeding Values (GEBVS) vs Genetic Values : 
 z_pred=read.csv("Z_Validation.csv",sep=",",header=F);z_pred<-as.matrix(z_pred)
 class(z_pred)<-"numeric"
 ndata=nrow(z_pred)
-effects_estimate<-sol_random[-(nmeans)]
+effects_estimate<-sol_fixed[-(nmeans)]
 
 gebv<-z_pred%*%effects_estimate
 gv = z_pred%*%sim_effects
@@ -221,7 +221,7 @@ plot(gv,gebv,main="Genomic Estimated Breeding Values (GEBVS) vs Genetic Values :
 
 ### Estimate Variance Components using Bayes C (π=0)
 
-#ss=sum(sol_random^2)+length(e)*Sa
-#vara=ss/chi(length(sol_random)+ncol(z))
+#ss=sum(sol_fixed^2)+length(e)*Sa
+#vara=ss/chi(length(sol_fixed)+ncol(z))
 #ss=sum(e**2)+nue*Se
 #vare=ss/chi(nue+ndata) 
