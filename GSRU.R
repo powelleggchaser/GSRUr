@@ -172,7 +172,7 @@ plot(gv,ebv,main="Genomic Estimated Breeding Values (GEBVS) vs Genetic Values : 
 
 if (genomic_prediction=="YES"){
   #read in validation set individuals (No Phen)
-  z_pred=read.csv("Z_Validation.csv",sep=",",header=F);z_pred<-as.matrix(z_pred)
+  z_pred=read.csv("Z_Validation_JH.csv",sep=",",header=F);z_pred<-as.matrix(z_pred)
   class(z_pred)<-"numeric"
   ndata=nrow(z_pred)
   effects_estimate<-sol[-(nmeans)]
