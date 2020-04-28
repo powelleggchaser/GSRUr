@@ -31,6 +31,6 @@ Path to new data files will need to be changed within the Rscript.
 
 * Repo owner or admin
 
-Owen.Powell@roslin.ed.ac.uk
+owen.m.powell@gmail.com
 	
 * Other community or team contact
