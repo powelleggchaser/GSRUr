@@ -6,8 +6,7 @@ This README would normally document whatever steps are necessary to get your app
 
 This repository is for tutorial scripts/programmes developed for students to understand the mechanics and behaviours of the Gauss-Seidel Iteration 
 
-Version 1.0 - Only works with estimating SNP effect. Random animal breeding value estimation via relationship matrices will be released in next version.
-
+Version 1.0 - Only works with estimating SNP effect.
 
 ### How do I get set up? ###
 
