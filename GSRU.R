@@ -1,7 +1,7 @@
 #Gaussian Seidel Residual Updater - Multiple Markers
 #Rversion
 
-source("~/Documents/OneDrive - University of Edinburgh/MME_Iterators/GSRU/GSRU_Functions.R")
+source("./MME_Iterator_Functions.R")
 
 ###########################################################
 
@@ -20,7 +20,7 @@ CONV_TOL=0.00000000000001 #Set convergence threshold, 10^-9 is suggested
 ###########################################################
 
 #change to directory holding your data files
-setwd("~/Documents/OneDrive - University of Edinburgh/MME_Iterators/GSRU/Data_Files/MultipleMarkers")
+setwd("./Data_Files/MultipleMarkers")
 
 #read in individuals (Data/No Data Score)
 x<-read.csv("X_JH.csv",sep=",",header=F)
