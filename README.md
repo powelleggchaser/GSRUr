@@ -6,7 +6,11 @@ This README would normally document whatever steps are necessary to get your app
 
 This repository is for tutorial scripts/programmes developed for students to understand the mechanics and behaviours of the Gauss-Seidel Iteration 
 
+<<<<<<< HEAD
 Only works with estimating SNP effect.
+=======
+Version 1.0 - Only works with estimating SNP effect.
+>>>>>>> d1351a9644210f95bb875cceb644e803f18c58d8
 
 ### How do I get set up? ###
 
@@ -30,6 +34,6 @@ Path to new data files will need to be changed within the Rscript.
 
 * Repo owner or admin
 
-Owen.Powell@roslin.ed.ac.uk
+owen.m.powell@gmail.com
 	
 * Other community or team contact
